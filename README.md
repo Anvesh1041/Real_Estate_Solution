@@ -12,5 +12,5 @@ Welcome to Real Estate Solutions, a web application built with Flask that empowe
 - ### Prerequisites
 
 - Python (version 3.10.12)
-- Flask (pip istall flask in the terminal)
+- Flask (pip install flask in the terminal)
 - MySQL database (installation instructions [here](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/))
