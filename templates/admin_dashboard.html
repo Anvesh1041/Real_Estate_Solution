@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+  .button-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: inherit;
+    margin-top: 50px;
+    height: 50vh;
+    margin-top: 6rem;
+    margin: 2rem;
+  }
+
+  .no-notifications-message {
+    text-align: center;
+    font-weight: bold;
+    color: #ccc;
+    /* Adjust the color as needed */
+  }
+
+  .button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 300px;
+    margin: 0 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .button img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+  }
+
+  .button h3 {
+    margin: 0;
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .button p {
+    margin: 10px 20px;
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .button a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #00B4DB;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .button a:hover {
+    background-color: #0083B0;
+  }
+
+  .table-container {
+    height: 250px;
+    overflow-y: auto;
+  }
+
+  .form {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+  }
+
+  #location {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.2s;
+  }
+
+  /* Style for input textfield on smaller screens */
+  @media screen and (max-width: 600px) {
+    #location {
+      max-width: 100%;
+    }
+  }
+
+  button[type="submit"] {
+    height: 45px;
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 0px 20px;
+    text-align: center;
+    /* text-decoration: none; */
+    /* display: inline-block; */
+    /* font-size: 16px; */
+    margin-top: 6px;
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="display-4 text-center" style="font-weight: 400;">Real Estate Admin</h1>
+<br>
+<!-- <div class="button-container"> -->
+  <form action="{{ url_for('id_search') }}" method="post" class="form">
+    <input type="number" name="property_id" id="location" required placeholder="Enter property_id......">
+    <button type="submit">Search</button>
+  </form>
+<!-- </div> -->
+<br>
+
+<h1>Dashboard</h1>
+<div class="table-container">
+  {% if notifications %}
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Text</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for notification in notifications %}
+      <tr>
+        <td>{{ notification.id }}</td>
+        <td>{{ notification.username }}</td>
+        <td>{{ notification.n_text }}</td>
+        <td>
+          <a href="{{ url_for('delete_notification', notification_id=notification.n_id) }}" class="delete-button">
+            <i class="fa fa-times" style="color: red;"></i>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="no-notifications-message">No notifications received.</p>
+  {% endif %}
+</div>
+{% endblock %}

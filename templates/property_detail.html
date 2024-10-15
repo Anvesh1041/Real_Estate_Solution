@@ -14,12 +14,22 @@
                 <li>BHK: {{ property.bhk }}</li>
                 <li>Address: {{ property.address }}</li>
             </ul>
-            <a href="{{ url_for('buy') }}" class="btn btn-primary">Back to Properties</a>
-        </div>
+            <!-- <p>{{request.args.get('location')}}</p> -->
+            <form action="{{ url_for('add_notification', property_id=property.id) }}" method="POST">
+              <input style="display: none;" type="text" name="price" value="{{ property.price }}">
+              <button type="submit" class="btn btn-primary">Buy</button>
+          </form>
+            <a href="{{ back_url }}" class="btn btn-primary">Back to Properties</a>
+          </div>
     </div>
 </div>
 {% endblock %}
 {% block styles %}
+<!-- <script>
+  // Access the location variable from Jinja
+  var location = "{{ request.args.get('location') }}";
+  console.log("Location:", location); // Print location to the browser console
+</script> -->
 <style>
     .container {
   margin-top: 116px;

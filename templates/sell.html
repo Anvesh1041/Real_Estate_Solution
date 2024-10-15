@@ -1,30 +1,95 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Sell a Property</h1>
-    <form method="POST">
-        <div class="form-group">
-            <label for="price">Price</label>
-            <input type="text" class="form-control" id="price" name="price" required>
-        </div>
-        <div class="form-group">
-            <label for="location">Location</label>
-            <input type="text" class="form-control" id="location" name="location" required>
-        </div>
-        <div class="form-group">
-            <label for="bhk">BHK</label>
-            <input type="number" class="form-control" id="bhk" name="bhk" required>
-        </div>
-        <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" class="form-control" id="address" name="address" required>
-        </div>
-        <div class="form-group">
-          <form method="POST" action="/upload" enctype="multipart/form-data">
-            <input type="file" name="image">
-          </form>          
+<div class="container mt-5 mb-4 rounded">
+    <h1 class="text-center mb-4">Sell a Property</h1>
+    <form method="POST" action="{{ url_for('sell') }}">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="price" class="form-label">
+                    Price
+                    <i class="info-icon" data-tooltip="For rent, use /bed in price">i</i>
+                </label>
+                <!-- <button type="button" class="info-btn position-absolute" data-bs-toggle="tooltip" data-bs-placement="right" title="For rent, use /bed in price">
+                    i
+                </button> -->
+                <input type="text" class="form-control" id="price" name="price" placeholder="Enter the price range" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="location" class="form-label">Location</label>
+                <select name="location" id="location" class="form-control">
+                    <option value="" {% if location == '' %}selected{% endif %}>Choose Location...</option>
+                    <option value="Mumbai South West" {% if location == 'Mumbai South West' %}selected{% endif %}>Mumbai South West</option>
+                    <option value="South Mumbai" {% if location == 'South Mumbai' %}selected{% endif %}>South Mumbai</option>
+                    <option value="Central Mumbai suburbs" {% if location == 'Central Mumbai suburbs' %}selected{% endif %}>Central Mumbai suburbs</option>
+                    <option value="Mumbai Harbour" {% if location == 'Mumbai Harbour' %}selected{% endif %}>Mumbai Harbour</option>
+                    <option value="Mumbai Andheri-Dahisar" {% if location == 'Mumbai Andheri-Dahisar' %}selected{% endif %}>Mumbai Andheri-Dahisar</option>
+                    <option value="Mira Road And Beyond" {% if location == 'Mira Road And Beyond' %}selected{% endif %}>Mira Road And Beyond</option>
+                    <option value="Navi Mumbai" {% if location == 'Navi Mumbai' %}selected{% endif %}>Navi Mumbai</option>
+                    <option value="Thane" {% if location == 'Thane' %}selected{% endif %}>Thane</option>
+                    <option value="Mumbai Beyond Thane" {% if location == 'Mumbai Beyond Thane' %}selected{% endif %}>Mumbai Beyond Thane</option>
+                </select>
+            </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="bhk" class="form-label">BHK</label>
+                <input type="number" class="form-control" id="bhk" name="bhk" placeholder="Enter the number of Bedrooms" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address" name="address" placeholder="Enter the building name" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label for="image_link" class="form-label">
+                    Property Image Link 
+                    <i class="info-icon" data-tooltip="Upload the image to a site like Drive and provide the link.">i</i>
+                </label>
+                <input type="text" class="form-control" id="image_link" name="image_link" placeholder="Enter image link here" required>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg mt-3">Submit Property</button>
+        </div>
     </form>
+</div>
+{% endblock %}
+{% block styles %}
+<style>
+    .info-icon {
+        background-color: lightblue;
+        color: white;
+        font-weight: bold;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        display: inline-block;
+        /* margin-top: 4px; */
+        margin-left: 5px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .info-icon:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        background-color: #333;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        top: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        font-size: 12px;
+        z-index: 1;
+    }
+</style>
 {% endblock %}

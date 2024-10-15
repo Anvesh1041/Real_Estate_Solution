@@ -3,8 +3,23 @@
 {% block content %}
 <h1 style="text-align: center;">Search Properties</h1>
 <br>
-<form action="{{ url_for('search') }}" method="GET" class="form">
+<!-- <form action="{{ url_for('search') }}" method="GET" class="form">
   <input type="text" name="location" id="location" required placeholder="Enter location......">
+  <button type="submit">Search</button>
+</form> -->
+<form action="{{ url_for('rent') }}" method="POST" class="form">
+  <select name="location" id="location">
+    <option value="" {% if location == '' %}selected{% endif %}>Choose Location...</option>
+    <option value="Mumbai South West" {% if location == 'Mumbai South West' %}selected{% endif %}>Mumbai South West</option>
+    <option value="South Mumbai" {% if location == 'South Mumbai' %}selected{% endif %}>South Mumbai</option>
+    <option value="Central Mumbai suburbs" {% if location == 'Central Mumbai suburbs' %}selected{% endif %}>Central Mumbai suburbs</option>
+    <option value="Mumbai Harbour" {% if location == 'Mumbai Harbour' %}selected{% endif %}>Mumbai Harbour</option>
+    <option value="Mumbai Andheri-Dahisar" {% if location == 'Mumbai Andheri-Dahisar' %}selected{% endif %}>Mumbai Andheri-Dahisar</option>
+    <option value="Mira Road And Beyond" {% if location == 'Mira Road And Beyond' %}selected{% endif %}>Mira Road And Beyond</option>
+    <option value="Navi Mumbai" {% if location == 'Navi Mumbai' %}selected{% endif %}>Navi Mumbai</option>
+    <option value="Thane" {% if location == 'Thane' %}selected{% endif %}>Thane</option>
+    <option value="Mumbai Beyond Thane" {% if location == 'Mumbai Beyond Thane' %}selected{% endif %}>Mumbai Beyond Thane</option>
+  </select>
   <button type="submit">Search</button>
 </form>
 
@@ -14,6 +29,7 @@
     {% if properties %}
     {% for property in properties %}
     <div class="property-card">
+      <div class="property-number">#{{ loop.index }}</div>
       <a href="{{ url_for('property_detail', id=property.id) }}">
         <img src="{{ property.img_path }}" alt="{{ property.location }} property image">
       </a>
@@ -85,6 +101,12 @@
 {% block styles %}
 
 <style>
+  .property-number{
+    font-weight: 900;
+    margin-top: 2px;
+    margin-left: 5px;
+  }
+
   .hidden {
     display: none;
   }
@@ -160,7 +182,7 @@
     margin: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
     background-color: #fff;
     border-radius: 10px;
     overflow: hidden;

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Price : ₹{{ property.price }}</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ property.img_path }}" alt="{{ property.location }} property image">
+        </div>
+        <div class="col-md-6">
+            <ul>
+                <li>Price: {{ property.price }}</li>
+                <li>Location: {{ property.location }}</li>
+                <li>BHK: {{ property.bhk }}</li>
+                <li>Address: {{ property.address }}</li>
+            </ul>
+            <!-- <p>{{request.args.get('location')}}</p> -->
+            <form action="{{ url_for('add_notification', property_id=property.id) }}" method="POST">
+              <input style="display: none;" type="text" name="price" value="{{ property.price }}">
+              <button type="submit" class="btn btn-primary">Buy</button>
+          </form>
+            <a href="{{ url_for('delete_property', property_id=property.id) }}" class="btn btn-primary">Delete Property</a>
+          </div>
+    </div>
+</div>
+{% endblock %}
+{% block styles %}
+<!-- <script>
+  // Access the location variable from Jinja
+  var location = "{{ request.args.get('location') }}";
+  console.log("Location:", location); // Print location to the browser console
+</script> -->
+<style>
+    .container {
+  margin-top: 116px;
+  margin-bottom: 50px;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.col-md-6 {
+  width: 50%;
+  padding: 0 15px;
+}
+.col-md-6 img {
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+  object-position: center;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+li {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 30px;
+}
+
+.btn:hover {
+  background-color: #0062cc;
+}
+
+</style>
+{% endblock %}
